@@ -51,7 +51,7 @@ payload
             "blogs": ["liberlandpress"],
             "enable": true,
             "tags": ["liberland", "steemit", "selfgoverned"]            #could be empty []
-    }
+        }
     }
 }
 ```
@@ -66,7 +66,7 @@ payload
 {
     "details": {
         "stbot": {
-            "blogs": ["liberlandpress"],                                #change to update channel's list
+            "blogs": ["liberlandpress"],                                #change to update blogs list
             "enable": false,                                            #"enable": true to re-enable
             "tags": ["liberland", "steemit", "selfgoverned"]            #could be empty []
         }

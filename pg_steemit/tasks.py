@@ -22,15 +22,15 @@ async def steemit_bot(app):
                         await process_entry(bot, entry)
                     await User.update_one(
                         {'name': bot.name},
-                        {'$set': {"details.rssbot.launched": True}}
+                        {'$set': {"details.stbot.launched": True}}
                     )
 
                 else:
                     while True:
-                        entry = blog.take(limit=1)
+                        entry = blog.take(limit=1)[0]
                         exists = await Outbox.find_one({
                             "user_id": bot.name,
-                            "steemit_id": entry.id
+                            "steem_id": entry.permlink
                         })
                         if exists:
                             break
@@ -58,13 +58,12 @@ async def process_entry(bot, entry):
         "object": {
             "type": "Note",
             "summary": None,
-            "url": '',
             "content": body,
             "published": published,
             "attachment": [],
             "tag": object_tags
         }
     })
-    await activity.save(steemit_id=entry.id)
+    await activity.save(steem_id=entry.permlink)
     await activity.deliver()
     logger.info(f"steemit entry '{entry.title}' of {bot.name} federating")
